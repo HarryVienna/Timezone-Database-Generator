@@ -1,6 +1,5 @@
 package net.haraldkreuzer.database;
 
-import net.haraldkreuzer.DatabaseCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,7 @@ public class TimezoneDatabase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TimezoneDatabase.class);
 
-    final static int BUFFER_SIZE = 16777216; // 2^24
+    final static int BUFFER_SIZE = 20000000;
 
     private Header header;
     private List<Country> countryList = new ArrayList<>();
@@ -37,7 +36,7 @@ public class TimezoneDatabase {
     public ByteBuffer generateBuffer() {
 
         // Smallest countries first
-        this.getCountryList().sort(new Comparator<Country>() {
+        this.getCountryList().sort(new Comparator<>() {
             @Override
             public int compare(Country o1, Country o2) {
                 return o1.getArea().compareTo(o2.getArea());

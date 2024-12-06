@@ -2,20 +2,19 @@ package net.haraldkreuzer;
 
 import net.haraldkreuzer.database.Point;
 import net.haraldkreuzer.database.*;
-import org.geotools.data.FeatureReader;
-import org.geotools.data.FileDataStore;
-import org.geotools.data.FileDataStoreFinder;
+
+import org.geotools.api.data.FeatureReader;
+import org.geotools.api.feature.simple.SimpleFeature;
+import org.geotools.api.feature.simple.SimpleFeatureType;
+import org.geotools.data.shapefile.ShapefileDataStore;
 import org.locationtech.jts.geom.*;
-import org.opengis.feature.simple.SimpleFeature;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -25,7 +24,7 @@ public class DatabaseCreator {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseCreator.class);
 
     final static Byte VERSION = 1;
-    final static Byte PRECISION = 24;
+    final static Byte PRECISION = 22;
     final static String SIGNATURE = "TZDB";
 
     final static String DELIMITER = "=";
@@ -77,14 +76,12 @@ public class DatabaseCreator {
         List<Country> countryList = new ArrayList<>();
         timezoneDatabase.setCountryList(countryList);
 
-
         // Read all polygons
-        //File fileShapes = new File(classLoader.getResource("timezones.shapefile-with-oceans/combined-shapefile-with-oceans.shp").getFile());
         File fileShapes = new File(classLoader.getResource("timezones.shapefile/combined-shapefile.shp").getFile());
 
-        FileDataStore fileDataStore = FileDataStoreFinder.getDataStore(fileShapes);
+        ShapefileDataStore fileDataStore = new ShapefileDataStore(fileShapes.toURI().toURL());
 
-        FeatureReader featureReader = fileDataStore.getFeatureReader();
+        FeatureReader<SimpleFeatureType, SimpleFeature> featureReader = fileDataStore.getFeatureReader();
 
         while (featureReader.hasNext()) {
             SimpleFeature simpleFeature = (SimpleFeature) featureReader.next();

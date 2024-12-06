@@ -11,31 +11,26 @@
     <name>Timezone Database Generator</name>
 
     <properties>
-        <geotools.version>27-SNAPSHOT</geotools.version>
+        <geotools.version>32.1</geotools.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
         <dependency>
-
             <groupId>org.geotools</groupId>
             <artifactId>gt-shapefile</artifactId>
             <version>${geotools.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-swing</artifactId>
-            <version>${geotools.version}</version>
-        </dependency>
+
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.7</version>
+            <version>1.4.14</version>
         </dependency>
 
         <dependency>
@@ -111,7 +106,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <url>https://github.com/evansiroky/timezone-boundary-builder/releases/download/2020d/timezones.shapefile.zip</url>
+<!--                    <url>https://github.com/evansiroky/timezone-boundary-builder/releases/download/2020d/timezones.shapefile.zip</url>-->
+                    <url>https://github.com/evansiroky/timezone-boundary-builder/releases/download/2024b/timezones.shapefile.zip</url>
                     <unpack>true</unpack>
                     <skipCache>true</skipCache>
                     <outputDirectory>${basedir}/src/main/resources/timezones.shapefile</outputDirectory>
